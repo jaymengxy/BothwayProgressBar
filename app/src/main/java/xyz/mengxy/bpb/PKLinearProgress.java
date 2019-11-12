@@ -142,6 +142,7 @@ public class PKLinearProgress extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
         // only animator
         mPosWidth = Math.max(Math.min(mWidth * mPosPercent, mWidth - mRadius - GAP), mRadius + GAP);
         mNegWidth = Math.max(Math.min(mWidth * mNegPercent, mWidth - mRadius - GAP), mRadius + GAP);
