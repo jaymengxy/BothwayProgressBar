@@ -37,8 +37,8 @@ public class PKLinearProgress extends View {
     private RectF mLeftRectF;
     private RectF mRightRectF;
     private float mRadius;
-    private float mPosPercent = 0.5f;
-    private float mNegPercent = 0.5f;
+    private float mPosPercent = 0f;
+    private float mNegPercent = 0f;
 
     private boolean isAllPositive = false;
     private boolean isAllNegative = false;
@@ -78,59 +78,57 @@ public class PKLinearProgress extends View {
         mRadius = h / 2f;
         mLeftRectF = new RectF(0, 0, h, h);
         mRightRectF = new RectF(w - h, 0, w, h);
+        configure();
+    }
+
+    private void configure() {
         if (isAllPositive) {
-            mPosWidth = w;
+            mPosWidth = mWidth;
             mNegWidth = 0;
         } else if (isAllNegative) {
             mPosWidth = 0;
-            mNegWidth = w;
+            mNegWidth = mWidth;
         } else {
-            mPosWidth = Math.max(Math.min(w * mPosPercent, w - mRadius - GAP), mRadius + GAP);
-            mNegWidth = Math.max(Math.min(w * mNegPercent, w - mRadius - GAP), mRadius + GAP);
+            mPosWidth = Math.max(Math.min(mWidth * mPosPercent, mWidth - mRadius - GAP), mRadius + GAP);
+            mNegWidth = Math.max(Math.min(mWidth * mNegPercent, mWidth - mRadius - GAP), mRadius + GAP);
         }
-        LinearGradient mPosGradient = new LinearGradient(0, 0, mPosWidth, 0, mPosStartColor, mPosEndColor, Shader.TileMode.MIRROR);
-        LinearGradient mNegGradient = new LinearGradient(0, 0, mNegWidth, 0, mNegStartColor, mNegEndColor, Shader.TileMode.MIRROR);
-        mPosPaint.setShader(mPosGradient);
-        mNegPaint.setShader(mNegGradient);
+        LinearGradient posGradient = new LinearGradient(0, 0, mPosWidth, 0, mPosStartColor, mPosEndColor, Shader.TileMode.MIRROR);
+        LinearGradient negGradient = new LinearGradient(0, 0, mNegWidth, 0, mNegStartColor, mNegEndColor, Shader.TileMode.MIRROR);
+        mPosPaint.setShader(posGradient);
+        mNegPaint.setShader(negGradient);
     }
 
     public void setPositivePercent(float percent) {
-        if (percent <= 0f) {
-            isAllNegative = true;
-        } else if (percent >= 1f) {
-            isAllPositive = true;
-        } else {
-            mPosPercent = percent;
-            mNegPercent = 1f - percent;
-        }
+        isAllNegative = percent <= 0f;
+        isAllPositive = percent >= 1f;
+        mPosPercent = percent;
+        mNegPercent = 1f - percent;
+        configure();
         invalidate();
     }
 
-    public void setPositivePercentWithAnim(final float percent) {
-        if (percent <= 0f) {
-            isAllNegative = true;
-        } else if (percent >= 1f) {
-            isAllPositive = true;
-        }
-        ValueAnimator valuePos = ValueAnimator.ofFloat(0, percent);
-        valuePos.setDuration(4000);
+    public void setPositivePercentWithAnim(float percent) {
+        isAllNegative = percent <= 0f;
+        isAllPositive = percent >= 1f;
+        mPosPercent = percent;
+        mNegPercent = 1f - percent;
+        configure();
+        ValueAnimator valuePos = ValueAnimator.ofFloat(0, mPosPercent);
+        valuePos.setDuration(1000);
         valuePos.setInterpolator(new LinearInterpolator());
         valuePos.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                mPosPercent = (float) animation.getAnimatedValue();
-//                mPosWidth = Math.max(Math.min(mWidth * percent, mWidth - mRadius - GAP), mRadius + GAP);
+                mPosWidth = Math.max(Math.min(mWidth * (float) animation.getAnimatedValue(), mWidth - mRadius - GAP), mRadius + GAP);
             }
         });
-        ValueAnimator valueNeg = ValueAnimator.ofFloat(0, 1f - percent);
-        valueNeg.setDuration(4000);
+        ValueAnimator valueNeg = ValueAnimator.ofFloat(0, mNegPercent);
+        valueNeg.setDuration(1000);
         valueNeg.setInterpolator(new LinearInterpolator());
         valueNeg.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-//                float percent = (float) animation.getAnimatedValue();
-//                mNegWidth = Math.max(Math.min(mWidth * percent, mWidth - mRadius - GAP), mRadius + GAP);
-                mNegPercent = (float) animation.getAnimatedValue();
+                mNegWidth = Math.max(Math.min(mWidth * (float) animation.getAnimatedValue(), mWidth - mRadius - GAP), mRadius + GAP);
                 invalidate();
             }
         });
@@ -142,10 +140,11 @@ public class PKLinearProgress extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-        // only animator
-        mPosWidth = Math.max(Math.min(mWidth * mPosPercent, mWidth - mRadius - GAP), mRadius + GAP);
-        mNegWidth = Math.max(Math.min(mWidth * mNegPercent, mWidth - mRadius - GAP), mRadius + GAP);
+        if (mPosPercent <= 0 && mNegPercent <= 0) {
+            return;
+        }
+        mPosPath.reset();
+        mNegPath.reset();
         if (isAllPositive || isAllNegative) {
             mPosPath.moveTo(mRadius, 0);
             mPosPath.arcTo(mLeftRectF, 270, -180);

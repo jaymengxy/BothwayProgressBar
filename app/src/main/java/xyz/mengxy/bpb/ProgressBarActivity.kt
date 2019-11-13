@@ -1,6 +1,7 @@
 package xyz.mengxy.bpb
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
@@ -14,7 +15,9 @@ class ProgressBarActivity : AppCompatActivity() {
         const val EXTRA_PERCENT = "extra_percent"
 
         fun showProgressBar(context: Context, percent: Float) {
-
+            context.startActivity(Intent(context, ProgressBarActivity::class.java).apply {
+                putExtra(EXTRA_PERCENT, percent)
+            })
         }
     }
 

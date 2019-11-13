@@ -55,4 +55,32 @@
         app:layout_constraintStart_toEndOf="@id/et_positive"
         app:layout_constraintTop_toBottomOf="@id/btn_set_progress"/>
 
+    <TextView
+        android:id="@+id/tv_positive"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+        android:gravity="center"
+        android:textColor="@color/c_ff552e"
+        android:textSize="30sp"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_animation_progress"/>
+
+    <TextView
+        android:id="@+id/tv_negative"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+        android:gravity="center"
+        android:textColor="@color/c_556ccd"
+        android:textSize="30sp"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/tv_positive"
+        app:layout_constraintTop_toBottomOf="@+id/btn_animation_progress"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
