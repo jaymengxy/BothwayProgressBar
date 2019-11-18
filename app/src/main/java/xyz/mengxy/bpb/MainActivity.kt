@@ -4,7 +4,6 @@ import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -13,7 +12,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        pkl_progress.setPositivePercentWithAnim(0.5f)
         btn_set_progress.setOnClickListener {
             val percent = et_positive.text.toString().trim()
             if (percent.isEmpty()) {
