@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BothwayProgressBar</string>
+    <string name="positive_percent">positive percent</string>
 </resources>

@@ -6,81 +6,110 @@
                                                    android:layout_height="match_parent"
                                                    tools:context=".MainActivity">
 
-    <xyz.mengxy.bpb.PKLinearProgress
-        android:id="@+id/pkl_progress"
-        android:layout_width="300dp"
-        android:layout_height="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-
     <EditText
-        android:id="@+id/et_positive"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:textColor="#000000"
-        android:inputType="numberDecimal"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="40dp"
-        android:hint="positive percent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+            android:id="@+id/et_positive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:textColor="#000000"
+            android:inputType="numberDecimal"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="40dp"
+            android:hint="@string/positive_percent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
-        android:id="@+id/btn_set_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#000"
-        android:gravity="center"
-        android:text="SET"
-        android:background="#f4f4f4"
-        android:layout_marginStart="30dp"
-        app:layout_constraintStart_toEndOf="@id/et_positive"
-        app:layout_constraintTop_toTopOf="@id/et_positive"
-        app:layout_constraintBottom_toBottomOf="@id/et_positive"/>
+            android:id="@+id/btn_set_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:gravity="center"
+            android:text="SET"
+            android:background="#f4f4f4"
+            android:layout_marginStart="30dp"
+            app:layout_constraintStart_toEndOf="@id/et_positive"
+            app:layout_constraintTop_toTopOf="@id/et_positive"
+            app:layout_constraintBottom_toBottomOf="@id/et_positive"/>
 
     <Button
-        android:id="@+id/btn_animation_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#000"
-        android:gravity="center"
-        android:text="ANIM"
-        android:background="#f4f4f4"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintStart_toEndOf="@id/et_positive"
-        app:layout_constraintTop_toBottomOf="@id/btn_set_progress"/>
+            android:id="@+id/btn_animation_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:gravity="center"
+            android:text="ANIM"
+            android:background="#f4f4f4"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toEndOf="@id/et_positive"
+            app:layout_constraintTop_toBottomOf="@id/btn_set_progress"/>
+
 
     <TextView
-        android:id="@+id/tv_positive"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="30dp"
-        android:gravity="center"
-        android:textColor="@color/c_ff552e"
-        android:textSize="30sp"
-        android:text=""
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_animation_progress"/>
+            android:id="@+id/tv_positive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/c_ff552e"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="00"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/tv_negative"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="30dp"
-        android:gravity="center"
-        android:textColor="@color/c_556ccd"
-        android:textSize="30sp"
-        android:text=""
-        app:layout_constraintStart_toEndOf="@+id/tv_positive"
-        app:layout_constraintTop_toBottomOf="@+id/btn_animation_progress"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:textColor="@color/c_ff552e"
+            android:textSize="14sp"
+            android:text="%"
+            android:layout_marginStart="2dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_positive"
+            app:layout_constraintStart_toEndOf="@+id/tv_positive"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_positive"/>
+
+    <xyz.mengxy.bpb.BothwayProgressBar
+            android:id="@+id/progress"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_positive"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_positive"/>
+
+    <TextView
+            android:id="@+id/tv_negative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:gravity="center_vertical"
+            android:textColor="@color/c_556ccd"
+            android:layout_marginEnd="2dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="00"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_negative_percent"/>
+
+    <TextView
+            android:id="@+id/tv_negative_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:textColor="@color/c_556ccd"
+            android:layout_marginEnd="10dp"
+            android:textSize="14sp"
+            android:text="%"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_negative"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_negative"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

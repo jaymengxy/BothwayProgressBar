@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.LinearInterpolator
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.math.min
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,8 +18,8 @@ class MainActivity : AppCompatActivity() {
             if (percent.isEmpty()) {
                 return@setOnClickListener
             }
-            pkl_progress.setPositivePercent(percent.toFloat())
-            val positive: Int = (percent.toFloat() * 100).toInt()
+            progress.setPositivePercent(percent.toFloat())
+            val positive: Int = min((percent.toFloat() * 100).toInt(), 100)
             tv_positive.text = positive.toString()
             tv_negative.text = (100 - positive).toString()
         }
@@ -28,8 +29,8 @@ class MainActivity : AppCompatActivity() {
             if (percent.isEmpty()) {
                 return@setOnClickListener
             }
-            pkl_progress.setPositivePercentWithAnim(percent.toFloat())
-            val positive: Int = (percent.toFloat() * 100).toInt()
+            progress.setPositivePercentWithAnim(percent.toFloat())
+            val positive: Int = min((percent.toFloat() * 100).toInt(), 100)
             val positiveAnimator = ValueAnimator.ofInt(0, positive).apply {
                 duration = 1000
                 interpolator = LinearInterpolator()
